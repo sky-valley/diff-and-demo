@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Diff &amp; Demo — Ideas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geom:wght@300..900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     /* "Stuck?" prompt cards */
@@ -57,7 +57,7 @@
       border-radius: 999px;
       border: 0;
       background: var(--accent);
-      color: #fff;
+      color: var(--on-accent);
       cursor: pointer;
     }
     .toolbar button:active { transform: scale(0.97); }
@@ -123,7 +123,7 @@
     }
     .idea strong { display: block; margin-bottom: 4px; }
     .idea p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-    .idea mark { background: color-mix(in srgb, var(--accent) 25%, transparent); color: inherit; border-radius: 3px; }
+    .idea mark { background: color-mix(in srgb, var(--accent) 45%, transparent); color: inherit; border-radius: 3px; }
     .idea.picked {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
@@ -163,6 +163,7 @@
       <a class="brand" href="index.html">Diff <span>&amp;</span> Demo</a>
       <a class="link" href="index.html">Inspiration</a>
       <a class="link" href="ideas.html" aria-current="page">Ideas</a>
+      <a class="link" href="memes.html">Memes</a>
     </div>
   </nav>
 

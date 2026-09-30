@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Diff &amp; Demo — Inspiration</title>
+  <title>Diff &amp; Demo — Memes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Geom:wght@300..900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
@@ -13,32 +13,28 @@
   <nav class="site-nav">
     <div class="inner">
       <a class="brand" href="index.html">Diff <span>&amp;</span> Demo</a>
-      <a class="link" href="index.html" aria-current="page">Inspiration</a>
+      <a class="link" href="index.html">Inspiration</a>
       <a class="link" href="ideas.html">Ideas</a>
-      <a class="link" href="memes.html">Memes</a>
+      <a class="link" href="memes.html" aria-current="page">Memes</a>
     </div>
   </nav>
 
   <header class="hero">
-    <h1>Creative<br /><span>Technology</span></h1>
-    <p>A collage of experiments, tools and moments where code meets craft.</p>
+    <h1>Memes<br /><span>worth remixing</span></h1>
+    <p>Viral posts and formats to steal from. Make one interactive, personalise it, or turn it into a game.</p>
   </header>
 
   <main class="collage" id="collage"></main>
 
   <script src="collage.js"></script>
   <script>
-    // Paste tweet URLs here (x.com or twitter.com links both work).
-    const TWEETS = [
-      "https://x.com/roczhang9673/status/2100945143381803110",
-      "https://x.com/HugoDuprez/status/2104579137575018827",
-      "https://x.com/azlenelza/status/2104223436075860228",
-      "https://x.com/raffiki_art/status/2105047227060351011",
-      "https://x.com/JaejinBong/status/2095526730534719954",
-      "https://x.com/pauline_makes/status/2093453084814901435",
+    // Paste links here: X posts get embedded, image URLs show as images, anything else becomes a link.
+    const MEMES = [
+      // "https://x.com/someone/status/1234567890123456789",
+      // "https://example.com/some-meme.jpg",
     ];
 
-    renderCollage(TWEETS, { listName: "the TWEETS list in index.html" });
+    renderCollage(MEMES, { listName: "the MEMES list in memes.html" });
   </script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>

@@ -1,0 +1,54 @@
+/* Masonry-style collage using CSS columns */
+.collage {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px 96px;
+  columns: 3 340px;
+  column-gap: 24px;
+}
+.tile {
+  break-inside: avoid;
+  margin: 0 0 24px;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.25s ease;
+}
+.tile:hover {
+  transform: rotate(0deg) scale(1.02);
+  position: relative;
+  z-index: 1;
+}
+.tile .twitter-tweet { margin: 0 !important; }
+
+/* Plain image tiles */
+.tile img {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+/* Shown while a tweet is loading, if it fails, or for plain links */
+.placeholder {
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+.placeholder a { color: var(--ink); text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+
+.empty {
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .collage { padding: 8px 16px 64px; }
+  .tile { transform: none; }
+}
