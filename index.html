@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diff &amp; Demo — Inspiration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Masonry-style collage using CSS columns */
+    .collage {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px 96px;
+      columns: 3 340px;
+      column-gap: 24px;
+    }
+    .tile {
+      break-inside: avoid;
+      margin: 0 0 24px;
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform 0.25s ease;
+    }
+    .tile:hover {
+      transform: rotate(0deg) scale(1.02);
+      position: relative;
+      z-index: 1;
+    }
+    .tile .twitter-tweet { margin: 0 !important; }
+
+    /* Shown while a tweet is loading, or if it fails */
+    .placeholder {
+      background: var(--card);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+    .placeholder a { color: var(--accent); }
+
+    .empty {
+      grid-column: 1 / -1;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .collage { padding: 8px 16px 64px; }
+      .tile { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="inner">
+      <a class="brand" href="index.html">Diff <span>&amp;</span> Demo</a>
+      <a class="link" href="index.html" aria-current="page">Inspiration</a>
+      <a class="link" href="ideas.html">Ideas</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Creative<br /><span>Technology</span></h1>
+    <p>A collage of experiments, tools and moments where code meets craft.</p>
+  </header>
+
+  <main class="collage" id="collage"></main>
+
+  <script>
+    // Paste tweet URLs here (x.com or twitter.com links both work).
+    const TWEETS = [
+      "https://x.com/roczhang9673/status/2100945143381803110",
+      "https://x.com/HugoDuprez/status/2104579137575018827",
+      "https://x.com/azlenelza/status/2104223436075860228",
+      "https://x.com/raffiki_art/status/2105047227060351011",
+      "https://x.com/JaejinBong/status/2095526730534719954",
+      "https://x.com/pauline_makes/status/2093453084814901435",
+    ];
+
+    const collage = document.getElementById("collage");
+    const theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+    function tweetId(url) {
+      const m = String(url).match(/status(?:es)?\/(\d+)/);
+      return m ? m[1] : null;
+    }
+
+    if (!TWEETS.length) {
+      collage.innerHTML =
+        '<div class="empty">No tweets yet — add URLs to the <code>TWEETS</code> list in index.html.</div>';
+    }
+
+    const tiles = TWEETS.map((url, i) => {
+      const tile = document.createElement("div");
+      tile.className = "tile";
+      // Alternate small tilts so it feels pinned-up rather than gridded
+      const tilts = [-1.5, 1, -0.5, 1.5, -1, 0.5];
+      tile.style.setProperty("--tilt", tilts[i % tilts.length] + "deg");
+      tile.innerHTML = `<div class="placeholder">Loading <a href="${url}" target="_blank" rel="noopener">${url}</a></div>`;
+      collage.appendChild(tile);
+      return { tile, url, id: tweetId(url) };
+    });
+
+    window.addEventListener("load", () => {
+      if (!window.twttr?.widgets) {
+        tiles.forEach(({ tile, url }) => {
+          tile.querySelector(".placeholder").innerHTML =
+            `Couldn't load the X embed script. <a href="${url}" target="_blank" rel="noopener">Open tweet</a>`;
+        });
+        return;
+      }
+      tiles.forEach(({ tile, url, id }) => {
+        if (!id) {
+          tile.querySelector(".placeholder").textContent = "Not a tweet URL: " + url;
+          return;
+        }
+        const host = document.createElement("div");
+        tile.appendChild(host);
+        twttr.widgets
+          .createTweet(id, host, { theme, dnt: true, conversation: "none", align: "center" })
+          .then((el) => {
+            if (el) tile.querySelector(".placeholder").remove();
+            else tile.querySelector(".placeholder").innerHTML =
+              `Tweet unavailable (deleted or private). <a href="${url}" target="_blank" rel="noopener">Open link</a>`;
+          });
+      });
+    });
+  </script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
