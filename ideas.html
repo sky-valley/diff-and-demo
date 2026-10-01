@@ -131,6 +131,138 @@
 
     .no-results { color: var(--muted); padding: 24px 0; display: none; }
 
+    /* Formats to steal: big visual cards for participation formats */
+    .formats {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 16px 24px 56px;
+    }
+    .formats > h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+    .formats > h2 span { color: var(--accent); }
+    .formats > p { color: var(--muted); margin: 0 0 20px; max-width: 60ch; line-height: 1.5; }
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      gap: 20px;
+    }
+    .format {
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 6px 6px 0 var(--accent);
+    }
+    .format .visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--bg);
+      border-bottom: 2px solid var(--ink);
+      overflow: hidden;
+    }
+    .format .body { padding: 18px 20px 20px; line-height: 1.45; }
+    .format .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--accent);
+      color: var(--on-accent);
+      border-radius: 999px;
+      padding: 3px 10px;
+      margin-bottom: 10px;
+    }
+    .format h3 { font-family: "Geom", "Space Grotesk", sans-serif; font-size: 1.35rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+    .format .body p { margin: 0 0 8px; color: var(--muted); }
+    .format .body p.join { color: var(--ink); }
+    .format .body p.join b { color: var(--ink); }
+    .format .body a { color: var(--ink); text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+    /* 1. Name this album */
+    .album { display: grid; place-items: center; background: #1d1a17; }
+    .album .sleeve { position: relative; width: 68%; aspect-ratio: 1; }
+    .album .vinyl {
+      position: absolute; inset: 4% -14% 4% auto; aspect-ratio: 1; height: 92%;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0 14%, #111 15% 17%, #222 18% 100%);
+      box-shadow: inset 0 0 0 6px #111;
+      animation: spin 6s linear infinite;
+    }
+    .album .cover {
+      position: absolute; inset: 0;
+      background: #333 center / cover no-repeat;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .album .title {
+      position: absolute; left: 6%; right: 6%; bottom: 6%;
+      font-family: "Geom", "Space Grotesk", sans-serif;
+      font-weight: 800; font-size: clamp(1rem, 2.4vw, 1.4rem); line-height: 1;
+      color: #fff; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      outline: none; cursor: text;
+    }
+    .album .title:empty::before { content: "Click to name this album"; opacity: 0.75; }
+    .album .advisory {
+      position: absolute; right: 5%; top: 5%;
+      background: #fff; color: #000; border: 2px solid #000;
+      font: 800 0.5rem/1.1 system-ui, sans-serif; text-transform: uppercase; text-align: center;
+      padding: 2px 5px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 2. Squiggles */
+    .squiggle canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; background: #fffdf6; }
+    .squiggle .hint, .squiggle button {
+      position: absolute; bottom: 10px;
+      font: 600 0.8rem "Space Grotesk", sans-serif;
+      border-radius: 999px; padding: 5px 12px; border: 1.5px solid #161616;
+      background: #fff; color: #161616;
+    }
+    .squiggle .hint { left: 10px; pointer-events: none; }
+    .squiggle button { right: 10px; cursor: pointer; }
+
+    /* 3. Video divergence */
+    .reel { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; padding: 10px; background: #161616; }
+    .reel .clip {
+      position: relative; border-radius: 10px; overflow: hidden;
+      background: linear-gradient(160deg, #2a2a2a, #3a3227);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 8px;
+      color: #fff; font-size: 0.72rem;
+    }
+    .reel .original { grid-row: span 3; }
+    .reel .original .quote { font-family: "Geom", sans-serif; font-weight: 800; font-size: clamp(0.95rem, 2.2vw, 1.25rem); line-height: 1.1; margin-bottom: 6px; }
+    .reel .play {
+      position: absolute; top: 50%; left: 50%; translate: -50% -60%;
+      width: 44px; height: 44px; border-radius: 50%; background: var(--accent);
+      display: grid; place-items: center;
+    }
+    .reel .play::after { content: ""; margin-left: 4px; border: 9px solid transparent; border-left: 14px solid #161616; border-right: 0; }
+    .reel .who { font-weight: 700; opacity: 0.85; }
+    .reel .wave { display: flex; gap: 3px; align-items: flex-end; height: 22px; margin-top: 4px; }
+    .reel .wave i { flex: 1; background: var(--accent); border-radius: 2px; animation: talk 0.9s ease-in-out infinite alternate; }
+    .reel .wave i:nth-child(2n) { animation-delay: -0.3s; }
+    .reel .wave i:nth-child(3n) { animation-delay: -0.6s; }
+    @keyframes talk { from { height: 15%; } to { height: 100%; } }
+
+    /* 4. Make this meme interactive */
+    .meme img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .meme .sticker {
+      position: absolute; left: 50%; top: 50%; translate: -50% -50%; rotate: -6deg;
+      background: var(--accent); color: #161616; border: 2px solid #161616;
+      font: 800 clamp(1rem, 2.6vw, 1.4rem)/1.05 "Geom", "Space Grotesk", sans-serif;
+      padding: 10px 16px; border-radius: 12px; text-align: center;
+      box-shadow: 4px 4px 0 #161616;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .album .vinyl, .reel .wave i { animation: none; }
+    }
+
     @media (max-width: 820px) {
       .layout { grid-template-columns: 1fr; gap: 16px; }
       /* On small screens the category nav becomes a scrollable chip row */
@@ -174,6 +306,77 @@
 
   <div class="stuck" id="stuck"></div>
 
+  <section class="formats" aria-labelledby="formats-title">
+    <h2 id="formats-title">Formats <span>to steal</span></h2>
+    <p>One person sets it up, everyone else joins in. Each one starts with something small to answer, and the replies are the post.</p>
+    <div class="format-grid">
+
+      <article class="format">
+        <div class="visual album">
+          <div class="sleeve">
+            <div class="vinyl" aria-hidden="true"></div>
+            <div class="cover" id="album-cover" role="img" aria-label="Album cover: an elephant sitting on a bare tree branch in the desert"></div>
+            <div class="advisory" aria-hidden="true">Parental<br />Advisory</div>
+            <div class="title" contenteditable="true" spellcheck="false" aria-label="Type an album title"></div>
+          </div>
+        </div>
+        <div class="body">
+          <span class="tag">Steal from Reddit</span>
+          <h3>Name this album</h3>
+          <p>Post a weird picture. Everyone names it as if it were an album cover. It's a whole subreddit: <a href="https://www.reddit.com/r/AlbumCovers/" target="_blank" rel="noopener">r/AlbumCovers</a> (cover from <a href="https://www.reddit.com/r/AlbumCovers/comments/1wuv5zs/name_for_this/" target="_blank" rel="noopener">this post</a>).</p>
+          <p class="join"><b>People join by</b> typing a title, which gets laid over the cover. Vote for the best one.</p>
+        </div>
+      </article>
+
+      <article class="format">
+        <div class="visual squiggle">
+          <canvas id="squiggle" aria-label="Drawing area: finish the picture"></canvas>
+          <span class="hint">✏️ Draw on me</span>
+          <button type="button" id="squiggle-clear">Clear</button>
+        </div>
+        <div class="body">
+          <span class="tag">Drawing</span>
+          <h3>Squiggles</h3>
+          <p>Start with one squiggle. Finish the picture by adding a squiggle of your own.</p>
+          <p class="join"><b>People join by</b> adding their squiggle. Everyone's lines stack into one drawing, or each person turns the same starting squiggle into something different.</p>
+        </div>
+      </article>
+
+      <article class="format">
+        <div class="visual reel" aria-hidden="true">
+          <div class="clip original">
+            <div class="play"></div>
+            <div class="quote">"You absolute muppet."</div>
+            <div class="who">Original · @you</div>
+          </div>
+          <div class="clip"><div class="who">Take 1</div><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="clip"><div class="who">Take 2</div><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="clip"><div class="who">Take 3</div><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        </div>
+        <div class="body">
+          <span class="tag">Video</span>
+          <h3>Video divergence</h3>
+          <p>Record one clip, for example yourself saying a British insult. Everyone else records their own take on the same line. <a href="https://www.reddit.com/r/SipsTea/comments/1wpjwgo/british_insults/" target="_blank" rel="noopener">Example on r/SipsTea</a>.</p>
+          <p class="join"><b>People join by</b> recording their best British impression of that insult, shown next to the original.</p>
+        </div>
+      </article>
+
+      <article class="format">
+        <div class="visual meme">
+          <img src="images/cat-watermelon.png" alt="Meme: a cat pushes a watermelon, hugs a slice of it, then becomes a round, watermelon-shaped cat" loading="lazy" />
+          <div class="sticker" aria-hidden="true">How would you make<br />this interactive?</div>
+        </div>
+        <div class="body">
+          <span class="tag">Challenge</span>
+          <h3>How would you make this meme interactive?</h3>
+          <p>Cat meets watermelon. Cat eats watermelon. Cat becomes watermelon.</p>
+          <p class="join"><b>People join by</b> building their answer: feed the cat, a slider from cat to melon, a "what did you eat today" version.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
   <div class="toolbar">
     <input id="search" type="search" autocomplete="off" placeholder="Search ideas… (quiz, map, game)" aria-label="Search ideas" />
     <button id="surprise" type="button">🎲 Surprise me</button>
@@ -208,6 +411,10 @@
         "Confession booth: anonymous submissions, then a feed of them",
         "Time capsule: write something now, it unlocks on a date",
         "Leaderboard of something absurd: longest held eye contact with a cat photo",
+        "Name this album: post a weird picture, everyone names it like an album cover (r/AlbumCovers)",
+        "Squiggles: complete the picture by adding your own squiggle",
+        "Video divergence: record one line, everyone records their own take (best British impression of an insult)",
+        "How would you make this meme interactive: post a meme, everyone builds their answer",
       ]],
       ["Personalised", [
         "A meme but personalised: your photo or name dropped into a known format",
@@ -321,6 +528,56 @@
     document.getElementById("stuck").innerHTML = STUCK
       .map(([thing, action]) => `<div class="prompt">Take ${esc(thing)} and <em>${esc(action)}</em></div>`)
       .join("");
+
+    // Formats: album cover image
+    const ALBUM_COVER = "images/album-cover.jpg";
+    document.getElementById("album-cover").style.backgroundImage = `url("${ALBUM_COVER}")`;
+
+    // Formats: squiggle canvas with a starter squiggle; visitors draw on top
+    (() => {
+      const canvas = document.getElementById("squiggle");
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+
+      function starter() {
+        const { width: w, height: h } = canvas;
+        ctx.clearRect(0, 0, w, h);
+        ctx.lineCap = ctx.lineJoin = "round";
+        ctx.lineWidth = 5 * devicePixelRatio;
+        ctx.strokeStyle = "#f1af0f";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.3, h * 0.6);
+        ctx.bezierCurveTo(w * 0.35, h * 0.2, w * 0.5, h * 0.85, w * 0.55, h * 0.45);
+        ctx.bezierCurveTo(w * 0.58, h * 0.25, w * 0.7, h * 0.3, w * 0.68, h * 0.55);
+        ctx.stroke();
+      }
+      function resize() {
+        const r = canvas.getBoundingClientRect();
+        canvas.width = r.width * devicePixelRatio;
+        canvas.height = r.height * devicePixelRatio;
+        starter();
+      }
+      const point = (e) => {
+        const r = canvas.getBoundingClientRect();
+        return [(e.clientX - r.left) * devicePixelRatio, (e.clientY - r.top) * devicePixelRatio];
+      };
+      canvas.addEventListener("pointerdown", (e) => {
+        drawing = true;
+        canvas.setPointerCapture(e.pointerId);
+        ctx.strokeStyle = "#161616";
+        ctx.lineWidth = 3 * devicePixelRatio;
+        ctx.beginPath();
+        ctx.moveTo(...point(e));
+      });
+      canvas.addEventListener("pointermove", (e) => {
+        if (!drawing) return;
+        ctx.lineTo(...point(e));
+        ctx.stroke();
+      });
+      canvas.addEventListener("pointerup", () => (drawing = false));
+      document.getElementById("squiggle-clear").addEventListener("click", starter);
+      new ResizeObserver(resize).observe(canvas);
+    })();
 
     // Categories + ideas
     const toc = document.getElementById("toc");

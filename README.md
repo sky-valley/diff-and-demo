@@ -3,7 +3,7 @@
 Pages for the Diff & Demo meetup.
 
 - `index.html`: Inspiration, a collage of embedded tweets showing creative technology
-- `ideas.html`: Ideas, prompts for people who are stuck on what to build
+- `ideas.html`: Ideas, prompts for people who are stuck on what to build, plus "Formats to steal" (participation formats with visuals). Images live in `images/`
 - `memes.html`: Memes, viral posts and formats to remix
 
 ## Run locally
